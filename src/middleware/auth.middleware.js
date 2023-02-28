@@ -12,18 +12,22 @@ const verifyLogin = async (ctx, next) => {
       const error = new Error(errorType.NAME_OR_PASSWORD_IS_REQUIRED);
       return ctx.app.emit("error", error, ctx);
     }
-
-    console.log(1);
     const result = await userService.getUserByName(username);
     const user = result[0];
     if (!user) {
       const error = new Error(errorType.USER_DOES_NOT_EXIT);
-      return ctx.app.emit("error", error, ctx);
+      return ctx.fail({
+        msg: "请求失败",
+      });
+      // return ctx.app.emit("error", error, ctx);
     }
 
     if (md5Password(password) !== user.password) {
       const error = new Error(errorType.PASSWORD_IS_ERROR);
-      return ctx.app.emit("error", error, ctx);
+      return ctx.fail({
+        msg: "请求失败",
+      });
+      // return ctx.app.emit("error", error, ctx);
     }
     user.username = user.name;
     delete user.name;

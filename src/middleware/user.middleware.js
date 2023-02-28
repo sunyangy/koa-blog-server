@@ -3,6 +3,7 @@ const userService = require("../service/user.service.js");
 const md5Password = require("../utils/password-handle.js");
 // 验证注册用户名和密码的中间件
 const verifyUser = async (ctx, next) => {
+  console.log(1);
   const { username, password } = ctx.request.body;
   if (!username || !password) {
     const error = new Error(errorType.NAME_OR_PASSWORD_IS_REQUIRED);

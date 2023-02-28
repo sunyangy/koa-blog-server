@@ -15,6 +15,7 @@ class AuthController {
       });
       await next();
     } catch (error) {
+      console.log("登录失败");
       console.log(error.message);
     }
   }
