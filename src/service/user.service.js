@@ -1,11 +1,14 @@
 const connection = require("../app/database");
+const { v4: uuidv4 } = require("uuid");
 class UserService {
   // 插入用户
   async create(user) {
     try {
       const { username, password } = user;
-      const statement = `INSERT INTO user (name,password) VALUES (?,?);`;
-      const result = connection.execute(statement, [username, password]);
+      const uid = uuidv4();
+      console.log(uid);
+      const statement = `INSERT INTO user (id,name,password) VALUES (?,?,?);`;
+      const result = connection.execute(statement, [uid, username, password]);
       return result;
     } catch (error) {
       console.log(error.message);
