@@ -32,6 +32,7 @@ SELECT
 FROM
 	article a
 LEFT JOIN user u ON a.user_id = u.id
+ORDER BY a.updateAt DESC
 LIMIT ?,?	`;
 
       const result = await connection.execute(statement, [offset, size]);
