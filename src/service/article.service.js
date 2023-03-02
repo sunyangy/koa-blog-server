@@ -1,19 +1,17 @@
 const connection = require("../app/database");
-const { v4: uuidv4 } = require("uuid");
 class ArticleService {
   // 插入文章
   async createArticle(userId, title, content) {
     try {
-      const uid = uuidv4();
-      const statement = `INSERT INTO article (id,user_id ,title ,content) VALUES (?,?,?,?);`;
+      const statement = `INSERT INTO article (user_id,title ,content) VALUES (?,?,?);`;
       const result = await connection.execute(statement, [
-        uid,
         userId,
         title,
         content,
       ]);
       return result;
     } catch (error) {
+      console.log("error");
       console.log(error.message);
     }
   }
